@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qual o melhor whey? Compare proteína e preço | Compara Whey</title>
+  <meta name="description" content="Qual whey vale mais a pena? Compare mais de 30 wheys por proteína, leucina e preço. Para quem treina, está começando ou precisa de mais proteína, como quem usa Mounjaro.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Compara Whey">
+  <meta property="og:title" content="Qual o melhor whey? Compare proteína e preço">
+  <meta property="og:description" content="Ranking de mais de 30 wheys por proteína por porção, leucina e custo por 100 g de proteína. Calculadora de rótulo e comparação lado a lado.">
+  <meta property="og:url" content="https://comparawhey.com.br/">
+  <meta property="og:image" content="https://comparawhey.com.br/img/compartilhar.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://comparawhey.com.br/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#0A78BE">
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "WebSite", "name": "Compara Whey",
+   "url": "https://comparawhey.com.br/", "inLanguage": "pt-BR",
+   "description": "Compare whey protein por proteína por porção, leucina e preço, com ranking, calculadora de rótulo e comparação lado a lado."}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="pular" href="#ranking">Pular para o ranking</a>
+
+  <header class="topo">
+    <div class="topo__in">
+      <a class="marca" href="/" aria-label="Compara Whey, início"><span class="marca__c">Compara</span><span class="marca__w">Whey</span></a>
+      <form class="topo__busca" id="busca-topo" role="search">
+        <label class="sr" for="busca-topo-campo">Procurar whey</label>
+        <input id="busca-topo-campo" type="search" placeholder="Qual whey você procura?" autocomplete="off">
+        <button type="submit" aria-label="Procurar"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+      </form>
+      <a class="topo__cmp" href="/comparar.html">Comparar</a>
+    </div>
+    <nav class="menu" aria-label="Seções">
+      <ul class="menu__in">
+        <li><a href="#ranking">Mais proteína</a></li>
+        <li><a href="#ranking" data-ir-ranking="custo">Custo-benefício</a></li>
+        <li><a href="#ranking" data-ir-ranking="leucina">Mais leucina</a></li>
+        <li><a href="#lista">Todos os wheys</a></li>
+        <li><a href="#calcular">Calcular o seu</a></li>
+        <li><a href="#criterios">Como avaliamos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero-wrap">
+    <section class="hero" aria-labelledby="hero-titulo">
+      <div class="hero__texto">
+        <h1 id="hero-titulo">Quanto do seu whey é proteína de verdade?</h1>
+        <p class="hero__sub">Divida a proteína pela porção e você descobre a concentração. Aqui a conta já está feita para <strong id="total-wheys">34</strong> wheys, com leucina, preço e custo por 100 g de proteína lado a lado.</p>
+        <p class="hero__publico">Para quem treina, para quem está começando e para quem precisa de mais proteína no dia a dia, como quem usa canetas para emagrecer (Mounjaro, Ozempic). A quantidade certa para você quem define é o médico ou nutricionista.</p>
+        <dl class="escala" aria-label="Escala de classificação">
+          <div class="escala__faixa escala__faixa--ruim"><dt>Ruim</dt><dd>abaixo de 0,60</dd></div>
+          <div class="escala__faixa escala__faixa--regular"><dt>Regular</dt><dd>0,60 a 0,69</dd></div>
+          <div class="escala__faixa escala__faixa--bom"><dt>Bom</dt><dd>0,70 a 0,75</dd></div>
+          <div class="escala__faixa escala__faixa--muito-bom"><dt>Muito bom</dt><dd>acima de 0,75</dd></div>
+        </dl>
+        <a class="hero__atalho" href="#ranking">Ver os 5 melhores <span aria-hidden="true">↓</span></a>
+      </div>
+
+      <section id="calcular" class="rotulo" aria-labelledby="calc-titulo">
+        <span class="rotulo__tag">Calculadora</span>
+        <h2 id="calc-titulo" class="rotulo__titulo">Informação nutricional</h2>
+        <p class="rotulo__sub">Copie do rótulo de qualquer whey</p>
+        <form id="calc" class="calc" novalidate>
+          <label class="calc__campo calc__campo--nome">
+            <span>Produto <small>(opcional)</small></span>
+            <input id="calc-nome" type="text" autocomplete="off" placeholder="Ex.: whey da marca X">
+          </label>
+          <label class="calc__campo">
+            <span>Porção</span>
+            <span class="calc__input"><input id="calc-porcao" type="text" inputmode="decimal" placeholder="30"><em>g</em></span>
+          </label>
+          <label class="calc__campo">
+            <span>Proteínas</span>
+            <span class="calc__input"><input id="calc-proteina" type="text" inputmode="decimal" placeholder="24"><em>g</em></span>
+          </label>
+          <label class="calc__campo">
+            <span>Leucina</span>
+            <span class="calc__input"><input id="calc-leucina" type="text" inputmode="decimal" placeholder="2500"><em>mg</em></span>
+          </label>
+        </form>
+        <div class="calc__resultado" id="calc-resultado" aria-live="polite"></div>
+      </section>
+    </section>
+    </div>
+
+    <ul class="faixa" aria-label="O que comparamos">
+      <li><strong>Proteína por porção</strong><span>Quanto do pó é proteína</span></li>
+      <li><strong>Leucina</strong><span>Meta de 2.000 mg por porção</span></li>
+      <li><strong>Custo real</strong><span>Preço por 100 g de proteína</span></li>
+      <li><strong>Histórico de preço</strong><span>Atualizado todo dia</span></li>
+    </ul>
+
+    <section id="ranking" class="bloco" aria-labelledby="ranking-titulo">
+      <div class="bloco__cab">
+        <h2 id="ranking-titulo">Os 5 melhores</h2>
+        <p id="top-nota"></p>
+      </div>
+      <div class="abas" role="tablist" aria-label="Escolha o ranking">
+        <button type="button" role="tab" class="aba" data-ranking="proteina" aria-selected="true" aria-controls="top5">Mais proteína</button>
+        <button type="button" role="tab" class="aba" data-ranking="custo" aria-selected="false" aria-controls="top5">Melhor custo-benefício</button>
+        <button type="button" role="tab" class="aba" data-ranking="leucina" aria-selected="false" aria-controls="top5">Mais leucina</button>
+        <button type="button" role="tab" class="aba" data-ranking="nota" aria-selected="false" aria-controls="top5">Nota geral</button>
+      </div>
+      <ol class="vitrine" id="top5" role="tabpanel"></ol>
+    </section>
+
+    <!-- No celular a calculadora vem para cá, depois do ranking (site.js) -->
+    <div class="bloco calc-movel" id="calc-movel" hidden></div>
+
+    <section id="lista" class="bloco" aria-labelledby="lista-titulo">
+      <div class="bloco__cab">
+        <h2 id="lista-titulo">Todos os wheys</h2>
+        <p>Procure pela marca, pelo nome ou pelo tipo. Toque em Comparar + para colocar um whey contra outro.</p>
+      </div>
+
+      <div class="filtros">
+        <label class="busca">
+          <span class="sr">Procurar whey</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="busca" type="search" placeholder="Procurar whey, ex.: Growth, isolado" autocomplete="off">
+        </label>
+        <div class="chips" role="group" aria-label="Filtrar por classificação">
+          <button type="button" class="chip" data-classe="todas" aria-pressed="true">Todas</button>
+          <button type="button" class="chip" data-classe="muito-bom" aria-pressed="false">Muito bom</button>
+          <button type="button" class="chip" data-classe="bom" aria-pressed="false">Bom</button>
+          <button type="button" class="chip" data-classe="regular" aria-pressed="false">Regular</button>
+          <button type="button" class="chip" data-classe="ruim" aria-pressed="false">Ruim</button>
+        </div>
+        <div class="filtros__extra">
+          <label class="campo-sel">
+            <span>Tipo</span>
+            <select id="tipo"><option value="todos">Todos</option></select>
+          </label>
+          <label class="campo-sel">
+            <span>Ordenar por</span>
+            <select id="ordem">
+              <option value="nota">Nota geral</option>
+              <option value="conc">Proteína ÷ porção</option>
+              <option value="custo">Menor custo por proteína</option>
+              <option value="leucina">Leucina</option>
+              <option value="kcal">Menos calorias por porção</option>
+              <option value="carb">Menos carboidratos por porção</option>
+              <option value="nome">Marca (A–Z)</option>
+            </select>
+          </label>
+          <label class="toggle">
+            <input id="so-leucina" type="checkbox">
+            <span>Leucina acima de 2.000 mg</span>
+          </label>
+          <label class="toggle">
+            <input id="so-lactose" type="checkbox">
+            <span>Zero ou baixa lactose</span>
+          </label>
+          <label class="toggle">
+            <input id="so-gluten" type="checkbox">
+            <span>Sem glúten</span>
+          </label>
+          <label class="toggle">
+            <input id="so-carb" type="checkbox">
+            <span>Até 3 g de carboidrato</span>
+          </label>
+        </div>
+      </div>
+
+      <p class="contagem" id="lista-contagem" aria-live="polite"></p>
+
+      <div class="tabela-wrap">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th scope="col">Whey</th>
+              <th scope="col">Proteína ÷ porção</th>
+              <th scope="col">Leucina</th>
+              <th scope="col">Preço de referência</th>
+              <th scope="col">Nota</th>
+              <th scope="col"><span class="sr">Ações</span></th>
+            </tr>
+          </thead>
+          <tbody id="lista-corpo"></tbody>
+        </table>
+      </div>
+      <button type="button" class="lista-mais" id="lista-mais" hidden></button>
+
+      <div class="vazio" id="lista-vazia" hidden>
+        <p>Esse whey ainda não está na lista. Pegue o pote e calcule com os valores do rótulo.</p>
+        <button type="button" class="botao" id="ir-calc">Calcular com o rótulo</button>
+      </div>
+    </section>
+
+    <section id="criterios" class="bloco criterios" aria-labelledby="crit-titulo">
+      <div class="bloco__cab">
+        <h2 id="crit-titulo">Como avaliamos</h2>
+      </div>
+      <div class="criterios__grade">
+        <div>
+          <h3>Proteína ÷ porção</h3>
+          <p>Um whey com 24 g de proteína em uma porção de 30 g tem concentração 0,80: 80% do que você coloca no copo é proteína. O resto é carboidrato, gordura, aroma e adoçante. O resultado é arredondado para duas casas antes de classificar.</p>
+        </div>
+        <div>
+          <h3>Leucina acima de 2.000 mg</h3>
+          <p>A leucina é o aminoácido que mais estimula a síntese muscular. Para hipertrofia, o recomendado é passar de 2.000 mg por porção. Quando o rótulo não informa, mostramos uma estimativa de cerca de 10,5% da proteína, marcada como <span class="leu__tag">estimada</span>. O ranking "Mais leucina" usa só valores do rótulo; na nota geral, a estimativa entra no cálculo.</p>
+        </div>
+        <div>
+          <h3>Custo por 100 g de proteína</h3>
+          <p>Potes têm tamanhos e porções diferentes. Por isso dividimos o preço pela proteína total do pote: é o jeito justo de saber quanto você paga pela proteína, e não pelo pó.</p>
+        </div>
+        <div>
+          <h3>Nota geral de 0 a 10</h3>
+          <p>Pureza vale 40% (de 0,50 a 0,90), custo-benefício 35% (de R$ 60 a R$ 15 por 100 g de proteína) e leucina 25% (de 1.500 a 3.000 mg). Sem preço verificado o whey fica sem nota. Se faltar só a leucina, o peso dela é redistribuído entre os outros critérios.</p>
+        </div>
+        <div>
+          <h3>Preços e histórico</h3>
+          <p>O preço é o menor valor à vista que encontramos em uma loja, na data indicada, e é atualizado todo dia. Os selos "Caiu" e "Subiu" só comparam preços da mesma loja, e "Menor preço em 30 dias" exige pelo menos três coletas no período.</p>
+        </div>
+        <div>
+          <h3>Tabela nutricional e dieta</h3>
+          <p>Calorias, carboidratos, açúcares, gorduras e sódio são de um sabor de referência e mudam conforme o sabor. "Zero lactose" só aparece quando a marca declara; isolados e hidrolisados sem essa declaração aparecem como "Baixa lactose".</p>
+        </div>
+        <div>
+          <h3>Laudos e transparência</h3>
+          <p>Consultamos suspensões da ANVISA, a lista que a Senacon publicou em dez/2024 com base em análises da Abenutri (amostras de 2022, contestadas na Justiça pelos fabricantes, e com questões levantadas pela imprensa sobre conflito de interesses na entidade), certificações independentes e a lista de ingredientes. Mostramos os fatos com fonte e não damos selo de "aprovado" ou "reprovado".</p>
+        </div>
+        <div>
+          <h3>De onde vêm os números</h3>
+          <p>Coletamos os valores em lojas e bancos nutricionais públicos. Eles mudam conforme o sabor, o lote e a versão do rótulo. Antes de comprar, confira a tabela nutricional do pote.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>Compara Whey compara rótulos e não substitui a orientação de um nutricionista.</p>
+    <p>Alguns links de loja são de afiliado (Mercado Livre e Shopee): o Compara Whey pode ganhar uma comissão, sem custo extra para você. Isso não muda a ordem do ranking nem as notas.</p>
+  </footer>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/nutri.js"></script>
+  <script src="/js/qualidade.js"></script>
+  <script src="/js/afiliados.js"></script>
+  <script src="/js/core.js"></script>
+  <script src="/js/site.js"></script>
+</body>
+</html>

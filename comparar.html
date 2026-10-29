@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comparar wheys lado a lado: qual é melhor? | Compara Whey</title>
+  <meta name="description" content="Coloque dois wheys lado a lado e veja qual ganha em proteína por porção, leucina, calorias e custo por 100 g de proteína, com laudos, avaliações e histórico de preço.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Compara Whey">
+  <meta property="og:title" content="Comparar wheys lado a lado: qual é melhor?">
+  <meta property="og:description" content="Veja qual whey ganha em proteína, leucina, calorias e custo por 100 g de proteína.">
+  <meta property="og:url" content="https://comparawhey.com.br/comparar.html">
+  <meta property="og:image" content="https://comparawhey.com.br/img/compartilhar.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://comparawhey.com.br/comparar.html">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#0A78BE">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <a class="pular" href="#comparacao">Pular para a comparação</a>
+
+  <header class="topo">
+    <div class="topo__in">
+      <a class="marca" href="/" aria-label="Compara Whey, início"><span class="marca__c">Compara</span><span class="marca__w">Whey</span></a>
+      <form class="topo__busca" action="/" method="get" role="search">
+        <label class="sr" for="busca-topo-campo">Procurar whey</label>
+        <input id="busca-topo-campo" name="q" type="search" placeholder="Qual whey você procura?" autocomplete="off">
+        <button type="submit" aria-label="Procurar"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+      </form>
+      <a class="topo__cmp" href="/comparar.html" aria-current="page">Comparar</a>
+    </div>
+    <nav class="menu" aria-label="Seções">
+      <ul class="menu__in">
+        <li><a href="/#ranking">Mais proteína</a></li>
+        <li><a href="/#lista">Todos os wheys</a></li>
+        <li><a href="/#calcular">Calcular o seu</a></li>
+        <li><a href="/#criterios">Como avaliamos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="bloco" id="comparacao">
+    <div class="bloco__cab vs-cab">
+      <h1 class="cmp-titulo" id="vs-titulo">Comparar wheys</h1>
+      <p id="vs-sub">Escolha dois wheys para ver qual é melhor em cada critério.</p>
+    </div>
+
+    <section class="vs" id="vs" aria-label="Wheys comparados"></section>
+
+    <div id="vs-resultado" hidden>
+      <section class="vs-bloco" aria-labelledby="porque-titulo">
+        <h2 id="porque-titulo" class="sr">Por que cada um é melhor</h2>
+        <div class="porque" id="porque"></div>
+      </section>
+
+      <section class="vs-bloco" aria-labelledby="barras-titulo">
+        <h2 id="barras-titulo" class="vs-bloco__titulo">Critério a critério</h2>
+        <div class="barras" id="barras"></div>
+      </section>
+
+      <section class="vs-bloco" aria-labelledby="qualidade-titulo">
+        <h2 id="qualidade-titulo" class="vs-bloco__titulo">Qualidade e transparência</h2>
+        <p class="vs-bloco__sub">Mostramos só fatos com fonte. Não classificamos marcas como aprovadas ou reprovadas: listas e laudos podem estar em disputa na Justiça, e o resultado de um lote não vale para todos.</p>
+        <div class="cmp-wrap">
+          <table class="cmp-tabela" id="qualidade"></table>
+        </div>
+      </section>
+
+      <section class="vs-bloco" aria-labelledby="detalhes-titulo">
+        <h2 id="detalhes-titulo" class="vs-bloco__titulo">Detalhes e histórico de preço</h2>
+        <div class="cmp-wrap">
+          <table class="cmp-tabela" id="detalhes"></table>
+        </div>
+      </section>
+    </div>
+
+    <section class="vs-bloco" id="avaliacoes" aria-labelledby="aval-titulo" hidden>
+      <h2 id="aval-titulo" class="vs-bloco__titulo">Avaliações dos visitantes</h2>
+      <div class="aval-grade" id="aval-grade"></div>
+    </section>
+
+    <p class="cmp-aviso">Valores de referência coletados em lojas e bancos nutricionais públicos. Confira o rótulo e o preço na loja antes de comprar.</p>
+  </main>
+
+  <footer class="rodape">
+    <p>Compara Whey compara rótulos e não substitui a orientação de um nutricionista.</p>
+    <p>Alguns links de loja são de afiliado (Mercado Livre e Shopee): o Compara Whey pode ganhar uma comissão, sem custo extra para você. Isso não muda a ordem do ranking nem as notas.</p>
+  </footer>
+
+  <dialog class="seletor" id="seletor" aria-labelledby="seletor-titulo">
+    <div class="seletor__cab">
+      <h2 id="seletor-titulo">Escolha um whey para comparar</h2>
+      <button type="button" class="seletor__fechar" id="seletor-fechar" aria-label="Fechar">×</button>
+    </div>
+    <label class="busca seletor__busca">
+      <span class="sr">Procurar whey</span>
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="seletor-busca" type="search" placeholder="Procurar por marca, nome ou tipo" autocomplete="off">
+    </label>
+    <ul class="seletor__lista" id="seletor-lista"></ul>
+  </dialog>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/nutri.js"></script>
+  <script src="/js/qualidade.js"></script>
+  <script src="/js/afiliados.js"></script>
+  <script src="/js/core.js"></script>
+  <script src="/js/comparar.js"></script>
+</body>
+</html>
