@@ -42,11 +42,12 @@ window.WHEYS = [
   {
     id: "growth-isolado",
     marca: "Growth Supplements", nome: "Whey Protein Isolado 90%", tipo: "Isolado",
-    porcao: 30, proteina: 26, leucina: 3200, leucinaFonte: "rotulo",
+    // rótulo oficial da versão Natural (gsuplementos.com.br, 29/10/2026); nos sabores a proteína fica em cerca de 26 g
+    porcao: 30, proteina: 27, leucina: 2838, leucinaFonte: "rotulo",
     embalagem: 1000,
-    oferta: { valor: null, loja: "Captain Supplements", data: null,
-      url: "https://www.captainsupplements.com.br/iso-protein-90-proteina-isolada-1000g-growth-supplements", afiliado: "" },
-    historico: []
+    oferta: { valor: 349.90, loja: "Growth (oficial)", data: "2026-10-29",
+      url: "https://www.gsuplementos.com.br/top-whey-protein-isolado-1kg-growth-supplements-p985937", afiliado: "" },
+    historico: [{ data: "2026-10-29", valor: 349.90, loja: "Growth (oficial)" }]
   },
   {
     id: "on-gold-standard",

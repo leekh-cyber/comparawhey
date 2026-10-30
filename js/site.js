@@ -166,7 +166,11 @@ window.CW.pronto.then(function () {
     var o = estado.ordem;
     c.sort(function (a, b) {
       if (o === "conc") return b.conc - a.conc || (b.leucina || 0) - (a.leucina || 0);
-      if (o === "leucina") return (b.leucina || 0) - (a.leucina || 0);
+      if (o === "leucina") {
+        // valor do rótulo vem antes da estimativa, como no ranking dos 5 melhores
+        var ra = a.leucinaFonte === "rotulo" ? 1 : 0, rb = b.leucinaFonte === "rotulo" ? 1 : 0;
+        return rb - ra || (b.leucina || 0) - (a.leucina || 0);
+      }
       if (o === "custo") {
         if (a.custo100 === null) return 1;
         if (b.custo100 === null) return -1;
@@ -388,7 +392,7 @@ window.CW.pronto.then(function () {
           "Preencha a porção e a proteína, como aparecem na tabela nutricional do pote."));
         return;
       }
-      if (p <= 0 || pr < 0 || (l !== null && l < 0)) {
+      if (p <= 0 || pr <= 0 || (l !== null && l < 0)) {
         saida.appendChild(el("p", "calc__erro", "Use apenas números maiores que zero, como no rótulo."));
         return;
       }

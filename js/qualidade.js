@@ -33,7 +33,7 @@ window.QUALIDADE = {
     ingredientes: "ok", ingredientesNota: "Proteína do soro do leite concentrada, cacau, maltodextrina, aromatizante, lecitina e sucralose (sabor chocolate)."
   },
   "growth-isolado": {
-    ingredientes: null
+    ingredientes: "ok", ingredientesNota: "Proteína do soro do leite isolada e lecitina (versão Natural, sem aromas e sem adoçantes)."
   },
   "on-gold-standard": {
     certificacao: {

@@ -11,8 +11,8 @@
   --verde: #17A35B;
   --verde-esc: #11864A;
   --mb: #127047;
-  --bom: #4C7F1C;
-  --reg: #A35F00;
+  --bom: #3D6716; /* contraste AA sobre --bom-bg */
+  --reg: #8A5000; /* contraste AA sobre --reg-bg */
   --ruim: #AE2A22;
   --mb-bg: #DDF1E6;
   --bom-bg: #E7F1D8;
@@ -101,7 +101,7 @@ a { color: var(--azul-esc); }
 }
 .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.5rem); font-weight: 800; max-width: 15ch; }
 .hero__sub { margin-top: 1rem; max-width: 46ch; font-size: 1.1rem; color: #fff; }
-.hero__sub strong { color: var(--amarelo); }
+.hero__sub strong { color: #fff; text-decoration: underline; text-decoration-color: var(--amarelo); text-decoration-thickness: 3px; text-underline-offset: 3px; } /* amarelo sobre azul não passa no contraste */
 .hero__publico { margin-top: 0.6rem; max-width: 50ch; font-size: 0.92rem; color: rgba(255, 255, 255, 0.92); }
 
 .escala {

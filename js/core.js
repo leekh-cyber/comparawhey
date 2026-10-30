@@ -32,6 +32,7 @@
      sem esse campo, do histórico geral agrupado por loja. */
   var MAX_LOJAS = 4;
   var LOJA_RECENTE_DIAS = 7; // preço mais velho que isso não vira o preço de referência
+  var PRECO_VALIDO_DIAS = 14; // preço mais velho que isso não é mostrado (a loja pode ter mudado o preço ou saído do ar)
 
   function ordenarHist(h) {
     return h.slice().sort(function (a, b) { return a.data < b.data ? -1 : 1; });
@@ -83,14 +84,18 @@
       juntarHist(o.historico, a.historico);
     });
 
+    var hoje = hojeIso();
     var lista = ordem.map(function (n) {
       var o = mapa[n];
       o.historico = ordenarHist(o.historico);
       var ult = o.historico[o.historico.length - 1];
       if (ult) { o.valor = ult.valor; o.data = ult.data; }
+      // preço vencido: some da lista (link de afiliado fica, com "ver preço"); o histórico continua no gráfico
+      o.vencido = !!(o.data && diasEntre(o.data, hoje) > PRECO_VALIDO_DIAS);
+      if (o.vencido) { o.valor = null; o.data = null; }
       o.link = o.link || o.url;
       return o;
-    }).filter(function (o) { return o.link; }); // sem link não dá para comprar: fica fora da lista e do gráfico
+    }).filter(function (o) { return o.link && (o.afiliado || !o.vencido); }); // sem link não dá para comprar
 
     var afil = lista.filter(function (o) { return o.afiliado; });
     var outras = lista.filter(function (o) { return !o.afiliado; }).sort(function (a, b) {
@@ -124,7 +129,13 @@
 
   function enriquecer(w) {
     var lojas = montarLojas(w);
-    w = Object.assign({}, w, { oferta: ofertaDasLojas(w, lojas) });
+    var oferta = ofertaDasLojas(w, lojas);
+    // preço de referência vencido: o whey fica "sem preço verificado" e fora das contas de custo
+    if (oferta && oferta.data && diasEntre(oferta.data, hojeIso()) > PRECO_VALIDO_DIAS) {
+      var afil = lojas.filter(function (l) { return l.afiliado; })[0];
+      oferta = { valor: null, loja: null, data: null, url: afil ? afil.link : "", afiliado: "" };
+    }
+    w = Object.assign({}, w, { oferta: oferta });
     var conc = concentracao(w.proteina, w.porcao);
     var preco = w.oferta && w.oferta.valor;
     var porcoes = w.embalagem / w.porcao;

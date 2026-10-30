@@ -29,10 +29,11 @@ window.NUTRI = {
     fonte: "https://www.dicasdetreino.com.br/whey-protein-concentrado-growth-supplements/"
   },
   "growth-isolado": {
-    kcal: 112, carb: null, acucar: null, gord: null, sodio: null,
-    lactose: "contem", semGluten: null, adocante: null,
-    sabores: ["Chocolate", "Morango", "Natural"],
-    fonte: "https://www.captainsupplements.com.br/iso-protein-90-proteina-isolada-1000g-growth-supplements"
+    kcal: 116, carb: 2.0, acucar: 0, gord: 0, sodio: 44,
+    lactose: "contem", semGluten: true, adocante: "sem adoçante",
+    notaAdocante: "Valores da versão Natural. Os sabores Chocolate e Morango levam adoçante e têm cerca de 26 g de proteína.",
+    sabores: ["Natural", "Chocolate", "Morango"],
+    fonte: "https://www.gsuplementos.com.br/top-whey-protein-isolado-1kg-growth-supplements-p985937"
   },
   "on-gold-standard": {
     kcal: 116, carb: 1.6, acucar: 1.0, gord: 1.4, sodio: 48,
@@ -48,10 +49,10 @@ window.NUTRI = {
     fonte: "https://www.essentialnutrition.com.br/h-i-whey-375g-whey-protein-hidrolisado-e-isolado"
   },
   "black-skull-whey-zero": {
-    kcal: 86, carb: 1.5, acucar: 0, gord: 0, sodio: 55,
-    lactose: "baixa", semGluten: null, adocante: "sucralose",
+    kcal: 86, carb: 1.0, acucar: 0, gord: 0, sodio: 55,
+    lactose: "baixa", semGluten: true, adocante: "sucralose e acessulfame-K",
     sabores: ["Baunilha", "Chocolate", "Cookies and Cream", "Morango"],
-    fonte: "https://www.lojadosuplemento.com.br/whey-zero-black-skull-5407-p6165504"
+    fonte: "https://www.otimanutri.com.br/whey-zero-907g-morango-black-skull_3886_produto.html"
   },
   "probiotica-pure-whey": {
     kcal: 130, carb: 4.1, acucar: 1.8, gord: 2.4, sodio: 107,
