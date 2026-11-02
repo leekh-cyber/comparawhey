@@ -438,7 +438,107 @@
       if (l.afiliado) temAfiliado = true;
     });
     box.appendChild(ul);
+    var cupom = cupomPara(w);
+    if (cupom) {
+      box.appendChild(el("p", "lojas__cupom", "🎟️ Pode ter cupom no Mercado Livre: " + cupom.codigo + " (" + resumoCupom(cupom) +
+        "). Vale para produtos participantes: aplique no carrinho para conferir."));
+    }
     if (temAfiliado) box.appendChild(el("p", "lojas__aviso", "Alguns links são de afiliado: o Compara Whey pode ganhar uma comissão, sem custo extra para você."));
+    return box;
+  }
+
+  /* ===== Cupons do Mercado Livre =====
+     Vêm do cupons.json (GitHub Actions, fonte Promobit). Os gerais ("Selecionados") só aparecem na
+     caixa de cupons; os de Suplementos/Saúde também viram o selo "Pode ter cupom" nos wheys cujo
+     preço no Mercado Livre atinge o mínimo. Nenhum cupom é garantido para um produto específico. */
+  var LINK_CUPONS = "https://www.mercadolivre.com.br/social/ferreiradasilvaalex61";
+  var CUPONS_VALIDADE_DIAS = 2; // cupons.json mais velho que isso (coleta parada) é ignorado
+
+  function cuponsValidos() {
+    var agora = Date.now();
+    return (window.CW.cupons || []).filter(function (c) {
+      var fim = c.ate ? Date.parse(c.ate) : NaN;
+      return isNaN(fim) || fim > agora;
+    });
+  }
+
+  // "15% OFF acima de R$ 99, até R$ 60" / "R$ 40 OFF acima de R$ 199"
+  function resumoCupom(c) {
+    var t = c.pct ? c.pct + "% OFF" : fmtR(c.fixo).replace(/,00$/, "") + " OFF";
+    if (c.minimo > 1) t += " acima de " + fmtR(c.minimo).replace(/,00$/, "");
+    if (c.pct && c.teto) t += ", até " + fmtR(c.teto).replace(/,00$/, "");
+    return t;
+  }
+
+  // Melhor cupom de suplementos para o preço do whey no Mercado Livre (ou null)
+  function cupomPara(w) {
+    var ml = (w.lojas || []).filter(function (l) { return /^Mercado Livre/.test(l.loja) && l.link && l.valor; })[0];
+    if (!ml) return null;
+    var melhor = null, economiaMelhor = 0;
+    cuponsValidos().forEach(function (c) {
+      if (!c.suplementos || !c.codigo || ml.valor < c.minimo) return;
+      var economia = c.pct ? ml.valor * c.pct / 100 : c.fixo;
+      if (c.pct && c.teto) economia = Math.min(economia, c.teto);
+      if (economia > economiaMelhor) { melhor = c; economiaMelhor = economia; }
+    });
+    return melhor;
+  }
+
+  function seloCupom(w) {
+    var c = cupomPara(w);
+    if (!c) return null;
+    var s = el("span", "cupom-selo", "🎟️ Pode ter cupom no ML: " + c.codigo);
+    s.title = resumoCupom(c) + ". Vale para produtos participantes; confira no carrinho.";
+    return s;
+  }
+
+  function copiarCodigo(botao, codigo) {
+    function ok() {
+      botao.textContent = "Copiado!";
+      setTimeout(function () { botao.textContent = "Copiar"; }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(codigo).then(ok, function () { botao.textContent = codigo; });
+    } else {
+      botao.textContent = codigo;
+    }
+  }
+
+  // Caixa "Cupons do Mercado Livre hoje" (ou null quando não há cupom válido)
+  function caixaCupons(max) {
+    var lista = cuponsValidos().slice(0, max || 4);
+    if (!lista.length) return null;
+    var box = el("div", "cupons");
+    var ul = el("ul", "cupons__lista");
+    lista.forEach(function (c) {
+      var li = el("li", "cupom" + (c.suplementos ? " cupom--suple" : ""));
+      li.appendChild(el("span", "cupom__desc", resumoCupom(c)));
+      li.appendChild(el("span", "cupom__onde", c.suplementos ? "em " + c.categoria : "em produtos selecionados"));
+      var cod = el("div", "cupom__cod");
+      if (c.codigo) {
+        cod.appendChild(el("code", "cupom__codigo", c.codigo));
+        var b = el("button", "cupom__copiar", "Copiar");
+        b.type = "button";
+        b.setAttribute("aria-label", "Copiar o cupom " + c.codigo);
+        b.addEventListener("click", function () { copiarCodigo(b, c.codigo); });
+        cod.appendChild(b);
+      } else {
+        cod.appendChild(el("span", "cupom__auto", "Desconto automático, sem código"));
+      }
+      li.appendChild(cod);
+      if (c.ate) li.appendChild(el("span", "cupom__ate", "Válido até " + fmtData(c.ate.slice(0, 10)) + " ou enquanto durar o limite de usos"));
+      else li.appendChild(el("span", "cupom__ate", "Enquanto durar o limite de usos"));
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    var rod = el("div", "cupons__rodape");
+    rod.appendChild(el("p", "cupons__aviso", "Os cupons valem para produtos participantes: aplique o código no carrinho do Mercado Livre para ver se o seu whey entra. Fonte: Promobit."));
+    var a = el("a", "loja cupons__ir", "Ver ofertas no Mercado Livre");
+    a.href = LINK_CUPONS;
+    a.target = "_blank";
+    a.rel = "sponsored nofollow noopener";
+    rod.appendChild(a);
+    box.appendChild(rod);
     return box;
   }
 
@@ -452,7 +552,8 @@
     fmt: fmt, fmtG: fmtG, fmtR: fmtR, fmtData: fmtData, fmtPeso: fmtPeso,
     semAcento: semAcento,
     el: el, selo: selo, leucinaNode: leucinaNode, medidor: medidor, nota: nota, botaoLoja: botaoLoja, listaLojas: listaLojas, coresLojas: coresLojas, pote: pote, miniatura: miniatura, naLoja: naLoja,
-    seloPreco: seloPreco, textoAtualizado: textoAtualizado, textoPorcoes: textoPorcoes, textoOferta: textoOferta, chipsDieta: chipsDieta, chipsQualidade: chipsQualidade
+    seloPreco: seloPreco, textoAtualizado: textoAtualizado, textoPorcoes: textoPorcoes, textoOferta: textoOferta, chipsDieta: chipsDieta, chipsQualidade: chipsQualidade,
+    cupons: [], cupomPara: cupomPara, seloCupom: seloCupom, caixaCupons: caixaCupons, resumoCupom: resumoCupom
   };
 
   // Preços atualizados diariamente por uma rotina na nuvem no repositório do GitHub.
@@ -583,5 +684,16 @@
 
   var notasVisitantes = comLimite(carregarResumo(), 3000).catch(function () { /* site funciona sem avaliações */ });
 
-  window.CW.pronto = Promise.all([precos, notasVisitantes]);
+  var CUPONS_URL = "https://raw.githubusercontent.com/leekh-cyber/compara-whey-dados/main/cupons.json";
+  var cupons = comLimite(
+    fetch(CUPONS_URL, { cache: "no-cache" }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }), 3000
+  ).then(function (json) {
+    var idade = json.atualizado ? (Date.now() - new Date(json.atualizado).getTime()) / 864e5 : Infinity;
+    if (idade <= CUPONS_VALIDADE_DIAS && Array.isArray(json.cupons)) window.CW.cupons = json.cupons;
+  }).catch(function () { /* site funciona sem cupons */ });
+
+  window.CW.pronto = Promise.all([precos, notasVisitantes, cupons]);
 })();

@@ -114,6 +114,8 @@ window.CW.pronto.then(function () {
         preco.appendChild(el("span", "card__preco-valor", fmtR(w.preco)));
         preco.appendChild(el("span", "card__preco-sub", CW.textoPorcoes(w) + " " + CW.naLoja(w.oferta.loja)));
         preco.appendChild(el("span", "card__preco-sub card__preco-data", CW.textoAtualizado(w)));
+        var scT = CW.seloCupom(w);
+        if (scT) preco.appendChild(scT);
       } else {
         preco.appendChild(el("span", "card__preco-sub", "Sem preço verificado"));
       }
@@ -204,6 +206,8 @@ window.CW.pronto.then(function () {
     td.appendChild(el("span", "c-preco__sub", fmtR(w.precoKg) + " por kg"));
     td.appendChild(el("span", "c-preco__sub", fmtR(w.custo100) + " por 100 g de proteína"));
     td.appendChild(el("span", "c-preco__sub", fmtR(w.custoDose) + " por porção"));
+    var sc = CW.seloCupom(w);
+    if (sc) td.appendChild(sc);
     return td;
   }
 
@@ -441,7 +445,17 @@ window.CW.pronto.then(function () {
     if (q) { campo.value = q; aplicar(q, true); }
   }
 
+  // Caixa de cupons do Mercado Livre: só aparece quando o cupons.json tem cupom válido
+  function renderCupons() {
+    var caixa = CW.caixaCupons(4);
+    var secao = document.getElementById("cupons");
+    if (!caixa || !secao) return;
+    document.getElementById("cupons-conteudo").appendChild(caixa);
+    secao.hidden = false;
+  }
+
   document.getElementById("total-wheys").textContent = dados.length;
+  renderCupons();
   posicionarCalculadora();
   ligarAbas();
   renderTop("proteina");

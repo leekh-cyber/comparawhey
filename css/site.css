@@ -706,6 +706,38 @@ body.com-bandeja .rodape { padding-bottom: 5rem; }
 .preco-selo--subiu { background: var(--ruim-bg); color: var(--ruim); }
 .card__preco-data { font-style: normal; }
 
+/* ===== Cupons do Mercado Livre ===== */
+.cupom-selo {
+  display: inline-block !important; font-size: 0.72rem; font-weight: 800; padding: 0.15rem 0.5rem;
+  border-radius: 4px; margin-top: 0.35rem; width: fit-content; background: #FFF4CC; color: var(--marinho);
+  border: 1px dashed #B88600;
+}
+.lojas__cupom { margin: 0.5rem 0 0; padding: 0.45rem 0.6rem; font-size: 0.8rem; font-weight: 600; background: #FFF4CC; border: 1px dashed #B88600; border-radius: 6px; color: var(--marinho); }
+.bloco--cupons { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.cupons__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.cupom {
+  display: flex; flex-direction: column; gap: 0.3rem; padding: 0.9rem 1rem; background: var(--branco);
+  border: 2px dashed var(--amarelo); border-radius: var(--raio); box-shadow: var(--sombra);
+}
+.cupom--suple { border-color: var(--verde); }
+.cupom__desc { font-size: 1.15rem; font-weight: 800; color: var(--marinho); }
+.cupom__onde { font-size: 0.85rem; color: var(--cinza); }
+.cupom__cod { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; }
+.cupom__codigo {
+  font-family: ui-monospace, Consolas, monospace; font-size: 1rem; font-weight: 700; letter-spacing: 0.04em;
+  padding: 0.3rem 0.55rem; background: var(--fundo); border-radius: 6px; color: var(--marinho);
+}
+.cupom__copiar {
+  font: inherit; font-size: 0.85rem; font-weight: 800; min-height: 36px; padding: 0 0.8rem; cursor: pointer;
+  border-radius: 6px; border: 1.5px solid var(--azul-esc); background: var(--branco); color: var(--azul-esc);
+}
+.cupom__copiar:hover { background: var(--azul-claro); }
+.cupom__auto { font-size: 0.85rem; font-weight: 700; color: var(--mb); }
+.cupom__ate { font-size: 0.75rem; color: var(--cinza); }
+.cupons__rodape { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 0.9rem; }
+.cupons__aviso { margin: 0; font-size: 0.8rem; color: var(--cinza); max-width: 70ch; }
+.cupons__ir { width: auto; }
+
 /* ===== Responsivo ===== */
 @media (max-width: 1100px) {
   .vitrine { grid-template-columns: repeat(3, minmax(0, 1fr)); }
