@@ -375,6 +375,32 @@ a { color: var(--azul-esc); }
 .criterios h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
 .criterios p { color: var(--cinza); font-size: 0.94rem; margin: 0; }
 
+/* Perguntas frequentes */
+.faq { display: grid; gap: 0.6rem; max-width: 880px; }
+.faq details { background: var(--branco); border-radius: 12px; box-shadow: var(--sombra); padding: 0 1.2rem; }
+.faq summary {
+  cursor: pointer; list-style: none; font-weight: 800; padding: 1rem 1.6rem 1rem 0; position: relative; min-height: 44px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  font-size: 1.4rem; font-weight: 700; color: var(--azul-esc);
+}
+.faq details[open] summary::after { content: "−"; }
+.faq details p { margin: 0 0 1.1rem; color: var(--cinza); font-size: 0.95rem; max-width: 75ch; }
+
+/* Atalhos por objetivo (acima dos filtros da lista) */
+.atalhos { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; margin-bottom: 0.75rem; }
+.atalhos__rot { font-size: 0.88rem; font-weight: 700; color: var(--cinza); margin-right: 0.15rem; }
+.atalho {
+  font: inherit; font-size: 0.88rem; font-weight: 700; cursor: pointer; min-height: 36px;
+  padding: 0.38rem 0.85rem; border-radius: 999px;
+  border: 1.5px solid var(--verde-esc); background: var(--branco); color: var(--verde-esc);
+}
+.atalho:hover { background: var(--mb-bg); }
+.atalho[aria-pressed="true"] { background: var(--verde-esc); color: #fff; }
+.atalho-nota { margin: -0.25rem 0 0.75rem; font-size: 0.88rem; color: var(--mb); font-weight: 600; max-width: 80ch; }
+
 .rodape { background: var(--marinho); color: #B9C7D6; }
 .rodape p { max-width: 1200px; margin: 0 auto; padding: 1.75rem 1.25rem; font-size: 0.9rem; }
 .rodape p + p { padding-top: 0; margin-top: -1rem; font-size: 0.8rem; }
@@ -487,6 +513,27 @@ body.com-bandeja .rodape { padding-bottom: 5rem; }
 .vs > :last-child.vs__lado { border-top-color: var(--lado-b); }
 .vs__topo { display: flex; justify-content: space-between; align-items: center; }
 .vs__nome { font-size: 1.3rem; font-weight: 800; margin-top: 0.1rem; }
+.vs__nome a { color: inherit; text-decoration: none; }
+.vs__nome a:hover { text-decoration: underline; }
+
+/* Veredito de preço (contra a média de 30 dias na mesma loja) */
+.veredito { margin: 0.4rem 0 0; font-size: 0.8rem; font-weight: 600; color: var(--cinza); padding-left: 0.55rem; border-left: 3px solid var(--linha); }
+.veredito--bom { color: var(--mb); border-left-color: var(--verde); }
+.veredito--alto { color: var(--ruim); border-left-color: var(--ruim); }
+
+/* Comparações sugeridas na página de um whey */
+.sugestoes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.sugestao {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 0.75rem; align-items: center;
+  padding: 0.75rem 0.9rem; background: var(--branco); border-radius: var(--raio); box-shadow: var(--sombra);
+  color: inherit; text-decoration: none; border: 1.5px solid transparent;
+}
+.sugestao:hover, .sugestao:focus-visible { border-color: var(--azul); }
+.sugestao__foto { display: block; width: 44px; height: 44px; object-fit: contain; mix-blend-mode: multiply; }
+.sugestao__info { display: flex; flex-direction: column; min-width: 0; }
+.sugestao__info strong { font-weight: 800; font-size: 0.92rem; }
+.sugestao__info .sub { font-size: 0.78rem; color: var(--cinza); }
+.sugestao__ir { font-size: 0.82rem; font-weight: 800; color: var(--azul-esc); }
 .vs__acoes { margin-top: 0.9rem; display: grid; gap: 0.5rem; }
 
 /* Onde comprar: até 4 lojas */
@@ -572,6 +619,10 @@ body.com-bandeja .rodape { padding-bottom: 5rem; }
 .cmp-col--a { border-bottom-color: var(--lado-a) !important; }
 .cmp-col--b { border-bottom-color: var(--lado-b) !important; }
 #detalhes .cmp-col { font-weight: 800; font-size: 1rem; }
+/* Página de um whey: uma coluna só, que ocupa o resto da largura */
+.cmp-tabela--uma { min-width: 0; }
+.cmp-tabela--uma .cmp-col { width: auto; }
+.cmp-tabela--uma .cmp-tabela__canto, .cmp-tabela--uma .cmp-rot { width: 14rem; }
 
 /* Janela de escolha */
 .seletor {
@@ -812,6 +863,7 @@ body.com-bandeja .rodape { padding-bottom: 5rem; }
   .cmp-tabela th, .cmp-tabela td { padding: 0.65rem 0.6rem; }
   .cmp-tabela__canto, .cmp-rot { width: 6.5rem; min-width: 6.5rem; font-size: 0.82rem; }
   .cmp-col { min-width: 10rem; }
+  .cmp-tabela--uma .cmp-tabela__canto, .cmp-tabela--uma .cmp-rot { width: 7.5rem; min-width: 7.5rem; }
   .cmp-col__nome { font-size: 1.05rem; }
   .cmp-col__acoes { flex-direction: column; align-items: stretch; gap: 0.4rem; }
   .cmp-tabela td .vence { margin: 0.3rem 0 0; }

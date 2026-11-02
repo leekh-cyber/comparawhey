@@ -328,6 +328,26 @@
     return null;
   }
 
+  // Veredito de preço: o preço de referência contra a média dos últimos 30 dias na mesma loja.
+  // Precisa de pelo menos 3 coletas anteriores cobrindo 7 dias ou mais; diferenças abaixo de 5% contam como normal.
+  function vereditoPreco(w) {
+    if (!w.preco || !w.oferta) return null;
+    var l = (w.lojas || []).filter(function (x) { return x.loja === w.oferta.loja && !x.aPartir; })[0];
+    if (!l || !l.historico || !l.data) return null;
+    var antes = l.historico.filter(function (p) {
+      var d = diasEntre(p.data, l.data);
+      return d > 0 && d <= 30 && p.valor;
+    });
+    if (antes.length < 3) return null;
+    var datas = antes.map(function (p) { return p.data; }).sort();
+    if (diasEntre(datas[0], l.data) < 7) return null;
+    var media = antes.reduce(function (s, p) { return s + p.valor; }, 0) / antes.length;
+    var dif = w.preco - media, pct = dif / media;
+    if (pct <= -0.05) return el("p", "veredito veredito--bom", "Abaixo do normal: " + fmtR(-dif) + " a menos que a média dos últimos 30 dias " + naLoja(l.loja) + ".");
+    if (pct >= 0.05) return el("p", "veredito veredito--alto", "Acima do normal: " + fmtR(dif) + " a mais que a média dos últimos 30 dias " + naLoja(l.loja) + ". Vale olhar as outras lojas.");
+    return el("p", "veredito", "Preço dentro do normal dos últimos 30 dias " + naLoja(l.loja) + ".");
+  }
+
   // "30 porções (900 g)"
   function textoPorcoes(w) {
     return fmt(Math.floor(w.porcoes), 0) + " porções (" + fmtPeso(w.embalagem) + ")";
@@ -553,6 +573,7 @@
     semAcento: semAcento,
     el: el, selo: selo, leucinaNode: leucinaNode, medidor: medidor, nota: nota, botaoLoja: botaoLoja, listaLojas: listaLojas, coresLojas: coresLojas, pote: pote, miniatura: miniatura, naLoja: naLoja,
     seloPreco: seloPreco, textoAtualizado: textoAtualizado, textoPorcoes: textoPorcoes, textoOferta: textoOferta, chipsDieta: chipsDieta, chipsQualidade: chipsQualidade,
+    vereditoPreco: vereditoPreco,
     cupons: [], cupomPara: cupomPara, seloCupom: seloCupom, caixaCupons: caixaCupons, resumoCupom: resumoCupom
   };
 

@@ -17,7 +17,7 @@ window.CW.pronto.then(function () {
   function linkAvaliacoes(w) {
     var r = CW.avaliacoes.resumoDe(w.id);
     var a = el("a", "aval-link");
-    a.href = "/comparar.html?w=" + w.id + "#avaliacoes";
+    a.href = "/whey/" + w.id + ".html#avaliacoes";
     a.appendChild(CW.estrelas(r ? r.media : 0, r ? r.total : 0, true));
     if (!r) a.appendChild(el("span", "aval-link__cta", "Avaliar"));
     return a;
@@ -73,7 +73,7 @@ window.CW.pronto.then(function () {
 
       li.appendChild(el("span", "card__marca", w.marca));
       var a = el("a", "card__nome", w.nome);
-      a.href = "/comparar.html?w=" + w.id;
+      a.href = "/whey/" + w.id + ".html";
       li.appendChild(a);
       li.appendChild(linkAvaliacoes(w));
       var etiquetas = el("div", "card__etiquetas");
@@ -243,7 +243,7 @@ window.CW.pronto.then(function () {
       if (mini) tdNome.appendChild(mini);
       tdNome.appendChild(el("span", "c-nome__marca", w.marca));
       var a = el("a", "c-nome__prod", w.nome);
-      a.href = "/comparar.html?w=" + w.id;
+      a.href = "/whey/" + w.id + ".html";
       tdNome.appendChild(a);
       tdNome.appendChild(linkAvaliacoes(w));
       var etq = el("div", "c-nome__etq");
@@ -445,6 +445,66 @@ window.CW.pronto.then(function () {
     if (q) { campo.value = q; aplicar(q, true); }
   }
 
+  /* Atalhos por objetivo: cada um só ajusta os filtros que já existem (tudo continua visível e editável) */
+  var ATALHOS = {
+    comecar: { tipo: "Concentrado", ordem: "nota",
+      nota: "Concentrados pela nota geral: o tipo mais em conta e o mais comum para quem está começando." },
+    economia: { ordem: "custo",
+      nota: "Do menor para o maior custo por 100 g de proteína: quanto você paga pela proteína, e não pelo pó." },
+    hipertrofia: { leucina: true, ordem: "leucina",
+      nota: "Só wheys com mais de 2.000 mg de leucina por porção, o recomendado para ganho de massa, do maior para o menor." },
+    glp1: { carb: true, ordem: "conc",
+      nota: "Mais proteína em menos pó e até 3 g de carboidrato por porção, para quem come pouco com Mounjaro ou Ozempic. A quantidade de proteína quem define é o médico ou o nutricionista." },
+    lactose: { lactose: true, ordem: "nota",
+      nota: "Zero lactose (declarado pela marca) ou baixa lactose (isolados e hidrolisados). Em caso de alergia ao leite, whey não é indicado." }
+  };
+  var atalhoAtivo = null;
+
+  function aplicarAtalho(chave) {
+    var p = chave ? ATALHOS[chave] : {};
+    estado.busca = ""; estado.classe = "todas";
+    estado.tipo = p.tipo || "todos";
+    estado.ordem = p.ordem || "nota";
+    estado.leucina = !!p.leucina; estado.lactose = !!p.lactose; estado.gluten = false; estado.carb = !!p.carb;
+    // reflete nos controles
+    document.getElementById("busca").value = "";
+    document.getElementById("tipo").value = estado.tipo;
+    document.getElementById("ordem").value = estado.ordem;
+    document.getElementById("so-leucina").checked = estado.leucina;
+    document.getElementById("so-lactose").checked = estado.lactose;
+    document.getElementById("so-gluten").checked = false;
+    document.getElementById("so-carb").checked = estado.carb;
+    document.querySelectorAll("[data-classe]").forEach(function (c) {
+      c.setAttribute("aria-pressed", c.getAttribute("data-classe") === "todas" ? "true" : "false");
+    });
+    marcarAtalho(chave);
+    renderLista();
+  }
+
+  function marcarAtalho(chave) {
+    atalhoAtivo = chave || null;
+    document.querySelectorAll("[data-atalho]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-atalho") === atalhoAtivo ? "true" : "false");
+    });
+    var nota = document.getElementById("atalho-nota");
+    nota.textContent = atalhoAtivo ? ATALHOS[atalhoAtivo].nota : "";
+    nota.hidden = !atalhoAtivo;
+  }
+
+  function ligarAtalhos() {
+    document.querySelectorAll("[data-atalho]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var chave = b.getAttribute("data-atalho");
+        aplicarAtalho(atalhoAtivo === chave ? null : chave);
+      });
+    });
+    // mexeu em qualquer filtro à mão: o atalho deixa de estar "ligado" (os filtros ficam como estão)
+    document.querySelector(".filtros").addEventListener("input", function () { if (atalhoAtivo) marcarAtalho(null); });
+    document.querySelector(".filtros").addEventListener("click", function (e) {
+      if (atalhoAtivo && e.target.closest("[data-classe]")) marcarAtalho(null);
+    });
+  }
+
   // Caixa de cupons do Mercado Livre: só aparece quando o cupons.json tem cupom válido
   function renderCupons() {
     var caixa = CW.caixaCupons(4);
@@ -460,6 +520,7 @@ window.CW.pronto.then(function () {
   ligarAbas();
   renderTop("proteina");
   ligarFiltros();
+  ligarAtalhos();
   ligarMostrarMais();
   renderLista();
   ligarCalculadora();

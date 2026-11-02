@@ -25,10 +25,21 @@
    "url": "https://comparawhey.com.br/", "inLanguage": "pt-BR",
    "description": "Compare whey protein por proteína por porção, leucina e preço, com ranking, calculadora de rótulo e comparação lado a lado."}
   </script>
+  <!-- Mesmo texto da seção "Perguntas frequentes": ao mudar uma resposta lá, mude aqui também -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": "Qual é o melhor whey protein?", "acceptedAnswer": {"@type": "Answer", "text": "Depende do que você procura, mas três números ajudam a comparar qualquer whey: quanto do pó é proteína (proteína ÷ porção), quanta leucina vem em cada porção e quanto você paga por 100 g de proteína. O ranking \"Nota geral\" junta os três. Para objetivos específicos, use os atalhos da lista, como \"Gastar menos\" ou \"Hipertrofia\"."}},
+    {"@type": "Question", "name": "Qual a diferença entre whey concentrado, isolado e hidrolisado?", "acceptedAnswer": {"@type": "Answer", "text": "O concentrado é o mais comum e o mais barato: tem um pouco mais de carboidrato, gordura e lactose. O isolado passa por mais filtragem, por isso tem mais proteína por porção e menos lactose. O hidrolisado tem a proteína quebrada em partes menores, o que acelera a digestão, e costuma ser o mais caro. Os blends (3W) misturam os três."}},
+    {"@type": "Question", "name": "Como saber se um whey é bom?", "acceptedAnswer": {"@type": "Answer", "text": "Divida a proteína pela porção que aparece no rótulo: de 0,70 para cima é bom, acima de 0,75 é muito bom. Confira também se a leucina passa de 2.000 mg por porção e se a lista de ingredientes não tem aminoácidos soltos (como glicina ou taurina), que podem inflar a proteína do rótulo. A calculadora do topo da página faz a conta com qualquer rótulo."}},
+    {"@type": "Question", "name": "Whey ajuda quem usa Mounjaro ou Ozempic?", "acceptedAnswer": {"@type": "Answer", "text": "Remédios como Mounjaro (tirzepatida) e Ozempic (semaglutida) diminuem o apetite, e comendo pouco fica mais difícil chegar à proteína do dia. Por isso muita gente usa whey para completar a alimentação. Nesse caso vale preferir wheys com mais proteína em menos pó e poucas calorias (atalho \"Mounjaro / Ozempic\" na lista). A quantidade de proteína é o médico ou o nutricionista quem define."}},
+    {"@type": "Question", "name": "Por que comparar pelo custo por 100 g de proteína?", "acceptedAnswer": {"@type": "Answer", "text": "Potes têm tamanhos e porções diferentes, e um whey mais barato pode ter bem menos proteína. Dividindo o preço pela proteína total do pote, você descobre quanto paga pela proteína de verdade, e não pelo pó."}},
+    {"@type": "Question", "name": "Os preços são atualizados com que frequência?", "acceptedAnswer": {"@type": "Answer", "text": "Todo dia. Guardamos o histórico de cada loja para mostrar se o preço de hoje está abaixo ou acima do normal. Alguns links são de afiliado (Mercado Livre e Shopee): o Compara Whey pode ganhar uma comissão, sem custo extra para você, e isso não muda o ranking nem as notas."}}
+  ]}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/site.css?v=20261102a">
+  <link rel="stylesheet" href="/css/site.css?v=20261103a">
 </head>
 <body>
   <a class="pular" href="#ranking">Pular para o ranking</a>
@@ -51,6 +62,7 @@
         <li><a href="#lista">Todos os wheys</a></li>
         <li><a href="#calcular">Calcular o seu</a></li>
         <li><a href="#criterios">Como avaliamos</a></li>
+        <li><a href="#perguntas">Dúvidas</a></li>
       </ul>
     </nav>
   </header>
@@ -135,6 +147,16 @@
         <h2 id="lista-titulo">Todos os wheys</h2>
         <p>Procure pela marca, pelo nome ou pelo tipo. Toque em Comparar + para colocar um whey contra outro.</p>
       </div>
+
+      <div class="atalhos" role="group" aria-label="Atalhos por objetivo">
+        <span class="atalhos__rot">Atalhos:</span>
+        <button type="button" class="atalho" data-atalho="comecar" aria-pressed="false">Para começar</button>
+        <button type="button" class="atalho" data-atalho="economia" aria-pressed="false">Gastar menos</button>
+        <button type="button" class="atalho" data-atalho="hipertrofia" aria-pressed="false">Hipertrofia</button>
+        <button type="button" class="atalho" data-atalho="glp1" aria-pressed="false">Mounjaro / Ozempic</button>
+        <button type="button" class="atalho" data-atalho="lactose" aria-pressed="false">Intolerância à lactose</button>
+      </div>
+      <p class="atalho-nota" id="atalho-nota" aria-live="polite" hidden></p>
 
       <div class="filtros">
         <label class="busca">
@@ -249,6 +271,38 @@
         </div>
       </div>
     </section>
+
+    <section id="perguntas" class="bloco perguntas" aria-labelledby="faq-titulo">
+      <div class="bloco__cab">
+        <h2 id="faq-titulo">Perguntas frequentes</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Qual é o melhor whey protein?</summary>
+          <p>Depende do que você procura, mas três números ajudam a comparar qualquer whey: quanto do pó é proteína (proteína ÷ porção), quanta leucina vem em cada porção e quanto você paga por 100 g de proteína. O ranking "Nota geral" junta os três. Para objetivos específicos, use os atalhos da lista, como "Gastar menos" ou "Hipertrofia".</p>
+        </details>
+        <details>
+          <summary>Qual a diferença entre whey concentrado, isolado e hidrolisado?</summary>
+          <p>O concentrado é o mais comum e o mais barato: tem um pouco mais de carboidrato, gordura e lactose. O isolado passa por mais filtragem, por isso tem mais proteína por porção e menos lactose. O hidrolisado tem a proteína quebrada em partes menores, o que acelera a digestão, e costuma ser o mais caro. Os blends (3W) misturam os três.</p>
+        </details>
+        <details>
+          <summary>Como saber se um whey é bom?</summary>
+          <p>Divida a proteína pela porção que aparece no rótulo: de 0,70 para cima é bom, acima de 0,75 é muito bom. Confira também se a leucina passa de 2.000 mg por porção e se a lista de ingredientes não tem aminoácidos soltos (como glicina ou taurina), que podem inflar a proteína do rótulo. A calculadora do topo da página faz a conta com qualquer rótulo.</p>
+        </details>
+        <details>
+          <summary>Whey ajuda quem usa Mounjaro ou Ozempic?</summary>
+          <p>Remédios como Mounjaro (tirzepatida) e Ozempic (semaglutida) diminuem o apetite, e comendo pouco fica mais difícil chegar à proteína do dia. Por isso muita gente usa whey para completar a alimentação. Nesse caso vale preferir wheys com mais proteína em menos pó e poucas calorias (atalho "Mounjaro / Ozempic" na lista). A quantidade de proteína é o médico ou o nutricionista quem define.</p>
+        </details>
+        <details>
+          <summary>Por que comparar pelo custo por 100 g de proteína?</summary>
+          <p>Potes têm tamanhos e porções diferentes, e um whey mais barato pode ter bem menos proteína. Dividindo o preço pela proteína total do pote, você descobre quanto paga pela proteína de verdade, e não pelo pó.</p>
+        </details>
+        <details>
+          <summary>Os preços são atualizados com que frequência?</summary>
+          <p>Todo dia. Guardamos o histórico de cada loja para mostrar se o preço de hoje está abaixo ou acima do normal. Alguns links são de afiliado (Mercado Livre e Shopee): o Compara Whey pode ganhar uma comissão, sem custo extra para você, e isso não muda o ranking nem as notas.</p>
+        </details>
+      </div>
+    </section>
   </main>
 
   <footer class="rodape">
@@ -256,11 +310,11 @@
     <p>Alguns links de loja são de afiliado (Mercado Livre e Shopee): o Compara Whey pode ganhar uma comissão, sem custo extra para você. Isso não muda a ordem do ranking nem as notas.</p>
   </footer>
 
-  <script src="/js/data.js?v=20261102a"></script>
-  <script src="/js/nutri.js?v=20261102a"></script>
-  <script src="/js/qualidade.js?v=20261102a"></script>
-  <script src="/js/afiliados.js?v=20261102a"></script>
-  <script src="/js/core.js?v=20261102a"></script>
-  <script src="/js/site.js?v=20261102a"></script>
+  <script src="/js/data.js?v=20261103a"></script>
+  <script src="/js/nutri.js?v=20261103a"></script>
+  <script src="/js/qualidade.js?v=20261103a"></script>
+  <script src="/js/afiliados.js?v=20261103a"></script>
+  <script src="/js/core.js?v=20261103a"></script>
+  <script src="/js/site.js?v=20261103a"></script>
 </body>
 </html>

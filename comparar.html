@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/site.css?v=20261102a">
+  <link rel="stylesheet" href="/css/site.css?v=20261103a">
 </head>
 <body>
   <a class="pular" href="#comparacao">Pular para a comparação</a>
@@ -44,6 +44,7 @@
         <li><a href="/#lista">Todos os wheys</a></li>
         <li><a href="/#calcular">Calcular o seu</a></li>
         <li><a href="/#criterios">Como avaliamos</a></li>
+        <li><a href="/#perguntas">Dúvidas</a></li>
       </ul>
     </nav>
   </header>
@@ -57,12 +58,17 @@
     <section class="vs" id="vs" aria-label="Wheys comparados"></section>
 
     <div id="vs-resultado" hidden>
-      <section class="vs-bloco" aria-labelledby="porque-titulo">
+      <section class="vs-bloco" id="sec-sugestoes" aria-labelledby="sugestoes-titulo" hidden>
+        <h2 id="sugestoes-titulo" class="vs-bloco__titulo">Compare com wheys parecidos</h2>
+        <ul class="sugestoes" id="sugestoes"></ul>
+      </section>
+
+      <section class="vs-bloco" id="sec-porque" aria-labelledby="porque-titulo">
         <h2 id="porque-titulo" class="sr">Por que cada um é melhor</h2>
         <div class="porque" id="porque"></div>
       </section>
 
-      <section class="vs-bloco" aria-labelledby="barras-titulo">
+      <section class="vs-bloco" id="sec-barras" aria-labelledby="barras-titulo">
         <h2 id="barras-titulo" class="vs-bloco__titulo">Critério a critério</h2>
         <div class="barras" id="barras"></div>
       </section>
@@ -109,11 +115,11 @@
     <ul class="seletor__lista" id="seletor-lista"></ul>
   </dialog>
 
-  <script src="/js/data.js?v=20261102a"></script>
-  <script src="/js/nutri.js?v=20261102a"></script>
-  <script src="/js/qualidade.js?v=20261102a"></script>
-  <script src="/js/afiliados.js?v=20261102a"></script>
-  <script src="/js/core.js?v=20261102a"></script>
-  <script src="/js/comparar.js?v=20261102a"></script>
+  <script src="/js/data.js?v=20261103a"></script>
+  <script src="/js/nutri.js?v=20261103a"></script>
+  <script src="/js/qualidade.js?v=20261103a"></script>
+  <script src="/js/afiliados.js?v=20261103a"></script>
+  <script src="/js/core.js?v=20261103a"></script>
+  <script src="/js/comparar.js?v=20261103a"></script>
 </body>
 </html>

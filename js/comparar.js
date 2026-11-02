@@ -7,8 +7,11 @@ window.CW.pronto.then(function () {
 
   function porId(id) { return dados.find(function (d) { return d.id === id; }) || null; }
 
+  // Página de um whey (/whey/<id>.html, gerada por gerar_paginas_whey.py): começa com ele de um lado
+  var PAGINA = porId(window.CW_PAGINA_WHEY || "") ? window.CW_PAGINA_WHEY : null;
+
   // Dois lados: /comparar.html?w=idA,idB (qualquer um pode estar vazio)
-  var lados = (new URLSearchParams(location.search).get("w") || "").split(",").map(porId);
+  var lados = (new URLSearchParams(location.search).get("w") || PAGINA || "").split(",").map(porId);
   lados = [lados[0] || null, lados[1] || null];
   if (lados[0] && lados[1] && lados[0].id === lados[1].id) lados[1] = null;
 
@@ -17,8 +20,15 @@ window.CW.pronto.then(function () {
   function salvarUrl() {
     var ids = lados.map(function (w) { return w ? w.id : ""; });
     var q = ids[0] || ids[1] ? "?w=" + ids.join(",").replace(/,$/, "") : "";
+    if (PAGINA) {
+      // na página do whey, escolher outro (ou remover) leva para a comparação
+      if (!(lados[0] && lados[0].id === PAGINA && !lados[1])) location.href = "/comparar.html" + q;
+      return;
+    }
     history.replaceState(null, "", location.pathname + q);
   }
+
+  function linkWhey(w) { return "/whey/" + w.id + ".html"; }
 
   /* ===== Cartões dos dois lados ===== */
   function cartaoLado(i) {
@@ -38,7 +48,14 @@ window.CW.pronto.then(function () {
     c.appendChild(topo);
     c.appendChild(CW.pote(w));
     c.appendChild(el("span", "card__marca", w.marca));
-    c.appendChild(el("h2", "vs__nome", w.nome));
+    var h = el("h2", "vs__nome");
+    if (PAGINA === w.id) h.textContent = w.nome;
+    else {
+      var ln = el("a", null, w.nome);
+      ln.href = linkWhey(w);
+      h.appendChild(ln);
+    }
+    c.appendChild(h);
     var r = CW.avaliacoes.resumoDe(w.id);
     var aval = el("a", "aval-link");
     aval.href = "#avaliacoes";
@@ -57,6 +74,8 @@ window.CW.pronto.then(function () {
       if (sp) preco.appendChild(sp);
       preco.appendChild(el("span", "card__preco-valor", fmtR(w.preco)));
       preco.appendChild(el("span", "card__preco-sub", CW.textoOferta(w)));
+      var ver = CW.vereditoPreco(w);
+      if (ver) preco.appendChild(ver);
     } else {
       preco.appendChild(el("span", "card__preco-sub", "Sem preço verificado"));
     }
@@ -402,16 +421,18 @@ window.CW.pronto.then(function () {
     }]
   ];
 
-  function renderQualidade(a, b) {
+  // lista: os dois wheys da comparação, ou um só na página do whey
+  function renderQualidade(lista) {
     var t = document.getElementById("qualidade");
     if (!t) return;
     t.textContent = "";
+    t.classList.toggle("cmp-tabela--uma", lista.length === 1);
     var thead = el("thead");
     var tr = el("tr");
     var canto = el("th", "cmp-tabela__canto");
     canto.appendChild(el("span", "sr", "Critério"));
     tr.appendChild(canto);
-    [a, b].forEach(function (w, i) {
+    lista.forEach(function (w, i) {
       var th = el("th", "cmp-col cmp-col--" + (i === 0 ? "a" : "b"), w.nome);
       th.scope = "col";
       tr.appendChild(th);
@@ -424,7 +445,7 @@ window.CW.pronto.then(function () {
       var th = el("th", "cmp-rot", d[0]);
       th.scope = "row";
       linha.appendChild(th);
-      [a, b].forEach(function (w) {
+      lista.forEach(function (w) {
         var td = el("td");
         td.appendChild(d[1](w));
         linha.appendChild(td);
@@ -438,15 +459,16 @@ window.CW.pronto.then(function () {
     return v === null || v === undefined ? "Não encontrado" : fmt(v, casas) + unidade;
   }
 
-  function renderDetalhes(a, b) {
+  function renderDetalhes(lista) {
     var t = document.getElementById("detalhes");
     t.textContent = "";
+    t.classList.toggle("cmp-tabela--uma", lista.length === 1);
     var thead = el("thead");
     var tr = el("tr");
     var canto = el("th", "cmp-tabela__canto");
     canto.appendChild(el("span", "sr", "Critério"));
     tr.appendChild(canto);
-    [a, b].forEach(function (w, i) {
+    lista.forEach(function (w, i) {
       var th = el("th", "cmp-col cmp-col--" + (i === 0 ? "a" : "b"), w.nome);
       th.scope = "col";
       tr.appendChild(th);
@@ -459,7 +481,7 @@ window.CW.pronto.then(function () {
       var th = el("th", "cmp-rot", d[0]);
       th.scope = "row";
       linha.appendChild(th);
-      [a, b].forEach(function (w) {
+      lista.forEach(function (w) {
         var td = el("td");
         var v = d[1](w);
         td.appendChild(typeof v === "string" ? document.createTextNode(v) : v);
@@ -711,6 +733,34 @@ window.CW.pronto.then(function () {
     ativos.forEach(function (p) { grade.appendChild(colunaAvaliacoes(p[0], p[1])); });
   }
 
+  /* ===== Comparações sugeridas (quando há um whey só) =====
+     Os 3 mais parecidos no custo por proteína, preferindo o mesmo tipo */
+  function renderSugestoes(w) {
+    var ul = document.getElementById("sugestoes");
+    ul.textContent = "";
+    var outros = dados.filter(function (o) { return o.id !== w.id; });
+    function distancia(o) {
+      var dc = w.custo100 && o.custo100 ? Math.abs(o.custo100 - w.custo100) / w.custo100 : 1;
+      return dc + (o.tipo === w.tipo ? 0 : 0.5) + Math.abs(o.conc - w.conc);
+    }
+    outros.sort(function (p, q) { return distancia(p) - distancia(q); }).slice(0, 3).forEach(function (o) {
+      var li = el("li");
+      var a = el("a", "sugestao");
+      a.href = "/comparar.html?w=" + w.id + "," + o.id;
+      a.appendChild(CW.miniatura(o, "sugestao__foto") || el("span", "sugestao__foto"));
+      var info = el("span", "sugestao__info");
+      info.appendChild(el("span", "card__marca", o.marca));
+      info.appendChild(el("strong", null, o.nome));
+      var met = [fmt(o.conc, 2) + " de proteína"];
+      if (o.custo100) met.push(fmtR(o.custo100) + " por 100 g de proteína");
+      info.appendChild(el("span", "sub", met.join(" · ")));
+      a.appendChild(info);
+      a.appendChild(el("span", "sugestao__ir", "Comparar"));
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  }
+
   /* ===== Render geral ===== */
   function render() {
     var vs = document.getElementById("vs");
@@ -720,23 +770,36 @@ window.CW.pronto.then(function () {
     vs.appendChild(cartaoLado(1));
 
     var a = lados[0], b = lados[1];
+    var um = a && !b ? a : (!a && b ? b : null);
     var titulo = document.getElementById("vs-titulo");
     var sub = document.getElementById("vs-sub");
     var resultado = document.getElementById("vs-resultado");
+    document.getElementById("sec-porque").hidden = !!um;
+    document.getElementById("sec-barras").hidden = !!um;
+    document.getElementById("sec-sugestoes").hidden = !um;
     if (a && b) {
       titulo.textContent = a.nome + " x " + b.nome;
       sub.textContent = "Veja onde cada um ganha. Copie o endereço desta página para compartilhar a comparação.";
       resultado.hidden = false;
       renderPorque(a, b);
       renderBarras(a, b);
-      renderDetalhes(a, b);
-      renderQualidade(a, b);
+      renderDetalhes([a, b]);
+      renderQualidade([a, b]);
       document.title = a.nome + " x " + b.nome + " | Compara Whey";
+    } else if (um) {
+      // um whey só: a página dele, com tudo o que temos e sugestões de comparação
+      titulo.textContent = um.marca + " " + um.nome;
+      var nLojas = (um.lojas || []).filter(function (l) { return l.link; }).length;
+      sub.textContent = "Proteína por porção, leucina, preço" + (nLojas > 1 ? " em " + nLojas + " lojas" : "") +
+        " e histórico. Para comparar, escolha outro whey no espaço ao lado.";
+      resultado.hidden = false;
+      renderDetalhes([um]);
+      renderQualidade([um]);
+      renderSugestoes(um);
+      if (!PAGINA) document.title = um.marca + " " + um.nome + " | Compara Whey";
     } else {
       titulo.textContent = "Comparar wheys";
-      sub.textContent = (a || b)
-        ? "Agora escolha o segundo whey no espaço vazio."
-        : "Escolha dois wheys para ver qual é melhor em cada critério.";
+      sub.textContent = "Escolha dois wheys para ver qual é melhor em cada critério.";
       resultado.hidden = true;
       document.title = "Comparar wheys | Compara Whey";
     }
